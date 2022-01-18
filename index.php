@@ -3,6 +3,7 @@
  if($_POST){
     echo $_POST['usuario'];
  }
+
 ?>
 
 <!doctype html>
@@ -103,9 +104,10 @@
                                     <div class="widget-heading">
                                         <?php 
                                             if($_POST){
-                                                echo ('USUARIO NO LOGUEADO');
+                                                echo $_POST['usuario']; 
                                             } else {
-                                                echo $_POST['usuario'];
+                                                echo ('USUARIO NO LOGUEADO');
+                                                
                                             }
                                         ?>
                                     </div>
