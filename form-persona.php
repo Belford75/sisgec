@@ -57,27 +57,23 @@
                         </span>
                     </button>
                 </span>
-            </div>    <div class="app-header__content">
+            </div>    
+            <div class="app-header__content">
                 <div>
-                    <h1 class="subtitulo">REGISTRO DE GASTOS</h1>
+                    <h1 class="subtitulo">REGISTRO DE PERSONAS</h1>
                 </div>
                 <div class="app-header-right">
                     <div class="header-btn-lg pr-0">
                         <div class="widget-content p-0">
-                            <div class="widget-content-wrapper">
-                                <div class="widget-content-left">
-                                    <div class="btn-group">
-                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                            <img width="42" class="rounded-circle" src="assets/images/avatars/12.jpg" alt="">
-                                        </a>
-                                    </div>
-                                </div>
+                        <div class="widget-content-wrapper">
+                            <img width="40" class="rounded-circle" src="assets/images/avatars/login.jpg" alt="">
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
-                                        Belford Guthrié
-                                    </div>
-                                    <div class="widget-subheading">
-                                        Administrador
+                                        <?php
+                                            session_start();
+                                            $usuario=$_SESSION['usuario'];
+                                            echo $usuario;
+                                        ?>
                                     </div>
                                 </div>
                             </div>
@@ -132,13 +128,15 @@
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="form-persona.html">
+                                        <a href="form-persona.php">
+                                        <?php $_SESSION['usuario']=$usuario;?>
                                             <i class="metismenu-icon pe-7s-id"></i>
                                             Registro de Personas
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="form-asistencia.html">
+                                        <a href="form-asistencia.php">
+                                        <?php $_SESSION['usuario']=$usuario;?>
                                             <i class="metismenu-icon">
                                             </i>Registro de Asistencia
                                         </a>
@@ -153,19 +151,22 @@
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="form-diezmos.html">
+                                        <a href="form-diezmos.php">
+                                        <?php $_SESSION['usuario']=$usuario;?>
                                             <i class="metismenu-icon pe-7s-wallet">
                                             </i>Registro de Diezmos
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="form-ingresos.html">
+                                        <a href="form-ingresos.php">  
+                                        <?php $_SESSION['usuario']=$usuario;?> 
                                             <i class="metismenu-icon pe-7s-piggy">
                                             </i>Registro de Ingresos
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="form-gastos.html">
+                                        <a href="form-gastos.php">  
+                                        <?php $_SESSION['usuario']=$usuario;?>
                                             <i class="metismenu-icon pe-7s-credit">
                                             </i>Registro de Gastos
                                         </a>
@@ -173,9 +174,9 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="index.html">
-                                    <i class="metismenu-icon pe-7s-scissors"></i>
-                                    Cerrar Sesión
+                                <a href="index.php">
+                                    <i class="metismenu-icon pe-7s-home"></i>
+                                    Menú Principal
                                 </a>
                             </li>
                         </ul>
@@ -209,9 +210,14 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
+                                <span>Cumpleañeros</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <div class="search-wrapper">
                                 <div class="input-holder">
-                                    <input type="date" class="search-input" placeholder="Búsqueda">
+                                    <input type="text" class="search-input" placeholder="Búsqueda">
                                     <button class="search-icon"><span></span></button>
                                 </div>
                                 <button class="close"></button>
@@ -225,32 +231,51 @@
                                     <div class="main-card mb-3 card">
                                         <div class="card-body">
                                             <h5 class="card-title"></h5>
-                                            <form class="form-row">
+                                            <form class="">
                                                 <div class="position-relative form-group"><label 
-                                                    class="">Fecha del gasto</label><input name="fec_gas" id="IdFechaGasto"
-                                                    placeholder="Elija o digite la fecha" type="date"
+                                                    class="">Nombre(s) y Apellidos</label><input name="nombre" id="IdNombreDiezmo"
+                                                    placeholder="Se reconoce mayúsculas y minúsculas" type="text"
                                                     class="form-control"></div>
+                                            </form>   
+                                            <form class="form-row">
                                                 <div class="col-md-4">
                                                 <div class="position-relative form-group"><label 
-                                                    class="">Monto Bs.</label><input name="monto_gas" id="IdMonto_gas"
-                                                    placeholder="Monto Bs." type="number"
+                                                    class="">Fecha de Nacimiento</label><input name="fec_nac" id="IdFechaNacimiento"
+                                                    placeholder="Elija o digite la fecha" type="date"
+                                                    class="form-control"></div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="position-relative form-group"><label class="">Estado Civil</label><select type="select"
+                                                        id="IdEst_civ" name="estado_civil"
+                                                        class="custom-select">
+                                                        <option>Soltero(a)</option>
+                                                        <option>Casado(a)</option>
+                                                        <option>Viudo(a)</option>
+                                                        <option>Separado(a)</option>
+                                                        <option>Divorciado(a)</option>
+                                                        <option>Concubino(a)</option>
+                                                    </select></div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                <div class="position-relative form-group"><label 
+                                                    class="">Celular</label><input name="celular" id="IdCelular"
+                                                    placeholder="Nro. de celular" type="number"
                                                     class="form-control"></div>
                                                 </div>
                                             </form>
                                             <form class="">
                                                 <div class="position-relative form-group"><label 
-                                                    class="">Recibo o Factura</label><input name="reciboGas" id="IdReciboGas"
-                                                    placeholder="Nro. de Recibo o Factura" type="text"
+                                                    class="">Dirección del domicilio</label><input name="direccion" id="IdDireccion"
+                                                    placeholder="Se reconoce mayúsculas y minúsculas" type="text"
                                                     class="form-control"></div>
-                                            </form> 
-                                            <form class="">
                                                 <div class="position-relative form-group"><label 
-                                                    class="">Descripción</label><input name="descripGas" id="IdDescripGas"
-                                                    placeholder="Descripción del Gasto" type="text"
+                                                    class="">Profesión u ocupación</label><input name="profesion" id="IdProfesion"
+                                                    placeholder="Se reconoce mayúsculas y minúsculas" type="text"
                                                     class="form-control"></div>
-                                            </form> 
-                                            <button class="mt-1 btn btn-primary">Grabar</button>
-                                            <button class="mt-1 btn btn-primary">Corregir</button>
+                                                
+                                                <button class="mt-1 btn btn-primary">Grabar</button>
+                                                <button class="mt-1 btn btn-primary">Borrar</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -261,21 +286,25 @@
                                 <div class="col-lg-6">
                                     <div class="main-card mb-3 card">
                                         <div class="card-body">
-                                            <h5 class="card-title">REGISTRO DE GASTOS EN LA DB</h5>
+                                            <h5 class="card-title">PERSONAS REGISTRADAS EN LA DB</h5>
                                             <div class="table-responsive">
                                                 <table class="mb-0 table">
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>Fecha</th>
-                                                            <th>Recibo/Factura</th>
-                                                            <th>Descripción</th>
-                                                            <th>Monto Bs.</th>
+                                                            <th>Nombres y apellidos</th>
+                                                            <th>Fecha de nacimiento</th>
+                                                            <th>Estado Civil</th>
+                                                            <th>Dirección</th>
+                                                            <th>Profesión u Ocupación</th>
+                                                            <th>Celular</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
                                                             <th scope="row">1</th>
+                                                            <td>Table cell</td>
+                                                            <td>Table cell</td>
                                                             <td>Table cell</td>
                                                             <td>Table cell</td>
                                                             <td>Table cell</td>
@@ -287,9 +316,13 @@
                                                             <td>Table cell</td>
                                                             <td>Table cell</td>
                                                             <td>Table cell</td>
+                                                            <td>Table cell</td>
+                                                            <td>Table cell</td>
                                                         </tr>
                                                         <tr>
                                                             <th scope="row">3</th>
+                                                            <td>Table cell</td>
+                                                            <td>Table cell</td>
                                                             <td>Table cell</td>
                                                             <td>Table cell</td>
                                                             <td>Table cell</td>
@@ -302,6 +335,51 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel">
+                            <form class="">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="main-card mb-3 card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">CUMPLEAÑEROS POR MES</h5>
+                                                <div class="table-responsive">
+                                                    <table class="mb-0 table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Nombres y apellidos</th>
+                                                                <th>Fecha de nacimiento</th>
+                                                                <th>Celular</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">1</th>
+                                                                <td>Table cell</td>
+                                                                <td>Table cell</td>
+                                                                <td>Table cell</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">2</th>
+                                                                <td>Table cell</td>
+                                                                <td>Table cell</td>
+                                                                <td>Table cell</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">3</th>
+                                                                <td>Table cell</td>
+                                                                <td>Table cell</td>
+                                                                <td>Table cell</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

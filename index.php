@@ -1,9 +1,3 @@
-<?php
-
-
-
-?>
-
 <!doctype html>
 <html lang="es">
 
@@ -56,27 +50,14 @@
                         </span>
                     </button>
                 </span>
-
             </div>
             <div class="app-header__content">
                 <div class="app-header-left">
                     <ul class="header-menu nav">
-                        <li class="nav-item">
-                            <a href="javascript:urlDB();" class="nav-link">
-                                <i class="nav-link-icon fa fa-database"> </i>
-                                Url de la DB
-                            </a>
-                        </li>
-                        <li class="btn-group nav-item">
-                            <a href="javascript:ElegirDB();" class="nav-link">
-                                <i class="nav-link-icon fa fa-edit"></i>
-                                Conectar con la DB
-                            </a>
-                        </li>
-                        <li class="dropdown nav-item">
-                            <a href="javascript:abrirUsr();" class="nav-link">
-                                <i class="nav-link-icon fa fa-cog"></i>
-                                Cambio de Usuario
+                    <li class="dropdown nav-item">
+                            <a href="javascript:AbrirUsr();" class="nav-link">
+                                <i class="nav-link-icon pe-7s-users"></i>
+                                Iniciar Sesión
                             </a>
                         </li>
                     </ul>
@@ -85,24 +66,22 @@
                     <div class="header-btn-lg pr-0">
                         <div class="widget-content p-0">
                             <div class="widget-content-wrapper">
-                                <div class="widget-content-left">
-                                    <div class="btn-group">
-                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                            <img width="42" class="rounded-circle" src="assets/images/avatars/12.jpg" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="widget-content-left  ml-3 header-user-info">
-                                    <div class="widget-heading">
+                            <img width="40" class="rounded-circle" src="assets/images/avatars/login.jpg" alt="">
+                                <div class='widget-content-left'>
+                                    <div class="widget-content-left  ml-3 header-user-info">
+                                        <div class="widget-heading">
                                         <?php
-                                        if ($_POST) {
-                                            echo $_POST['usuario'];
-                                        } else {
-                                            echo ('USUARIO NO LOGUEADO');
-                                        }
+                                           if(isset($usuario)){
+                                                echo $usuario;
+                                            } else if(isset($_POST['usuario']) && isset($_POST['contraseña'])){
+                                                echo $usuario;
+                                            } else {
+                                                echo ('USUARIO NO LOGUEADO');
+                                            }
+                                           
                                         ?>
+                                        </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -144,24 +123,42 @@
                 </div>
                 <div class="scrollbar-sidebar">
                     <div class="app-sidebar__inner">
-                        <ul class="vertical-nav-menu">
-                            <li class="app-sidebar__heading">FORMULARIOS</li> <!-- Inicio de los menús (lateral)-->
+                        <?php if(isset($usuario)): ?>
+                         <ul class="vertical-nav-menu">
+                            <li class="app-sidebar__heading">CONFIGURACIÓN</li> 
                             <li>
                                 <a href="#">
-                                    <!--Menú de personas-->
+                                    <i class="metismenu-icon pe-7s-display1"></i>
+                                    Sistema
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li class='nav-item'>
+                                        <a href='javascript:UserDB();' class='nav-link'>
+                                            <i class='nav-link-icon fa fa-address-card'> </i>
+                                            Accesos y Usuarios
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="app-sidebar__heading">FORMULARIOS</li> 
+                            <li>
+                                <a href="#">
                                     <i class="metismenu-icon pe-7s-note2"></i>
                                     Administrativos
                                     <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="form-persona.html">
+                                        <a href="form-persona.php">
+                                            <?php $_SESSION['usuario']=$usuario;?>
                                             <i class="metismenu-icon pe-7s-id"></i>
                                             Registro de Personas
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="form-asistencia.html">
+                                        <a href="form-asistencia.php">
+                                            <?php $_SESSION['usuario']=$usuario;?>
                                             <i class="metismenu-icon">
                                             </i>Registro de Asistencia
                                         </a>
@@ -170,39 +167,41 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <!--Menú de finanzas-->
                                     <i class="metismenu-icon pe-7s-cash"></i>
                                     Finanzas
                                     <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="form-diezmos.html">
+                                        <a href="form-diezmos.php">
+                                            <?php $_SESSION['usuario']=$usuario;?>
                                             <i class="metismenu-icon pe-7s-wallet">
                                             </i>Registro de Diezmos
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="form-ingresos.html">
+                                        <a href="form-ingresos.php">
+                                            <?php $_SESSION['usuario']=$usuario;?>
                                             <i class="metismenu-icon pe-7s-piggy">
                                             </i>Registro de Ingresos
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="form-gastos.html">
+                                        <a href="form-gastos.php">
+                                            <?php $_SESSION['usuario']=$usuario;?>
                                             <i class="metismenu-icon pe-7s-credit">
                                             </i>Registro de Gastos
                                         </a>
                                     </li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="index.html">
-                                    <i class="metismenu-icon pe-7s-scissors"></i>
-                                    Cerrar Sesión
-                                </a>
-                            </li>
                         </ul>
+                        <?php endif; ?>
+                        <li class="app-sidebar__heading">
+                            <a href="cerrar_sesion.php" >
+                                CERRAR SESIÓN
+                            </a>
+                        </li>
                     </div>
                 </div>
             </div>
@@ -221,29 +220,25 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ventana_usr header-shadow bg-night-sky header-text-light" id="direcDB">URL DE LA BASE DE DATOS
-                        <form class="form_usr"><br />
-                            <div class="position-relative form-group"><label class="">Nombre</label><input name="nameDB" id="nombreDB" placeholder="Nombre de la base de datos" type="text" class="form-control"></div>
-                            <div class="position-relative form-group"><label class="">Dirección</label><input name="dirUrl" id="direccionURl" placeholder="Dirección de la URL" type="url" class="form-control"></div>
-                            <button class="mt-1 btn btn-primary">Crear</button>
-                        </form>
-                    </div>
-                    <div class="ventana_usr header-shadow bg-night-sky header-text-light" id="ElegirDB">SELECCIONAR LA BASE DE DATOS
-                        <form class="form_usr"><br />
-                            <div>
-                                <ul class="list-group">
-                                    <button class="list-group-item-action list-group-item">CENTRAL</button>
-                                    <button class="list-group-item-action list-group-item">CAMIRI</button>
-                                    <button class="list-group-item-action list-group-item">VILLA WARNES</button>
-                                </ul>
-                            </div>
-                        </form>
-                    </div>
                     <div class="ventana_usr header-shadow bg-night-sky header-text-light" id="ventana_usuario">AUTENTIFICACION DE USUARIO
-                        <form class="form_usr" action="validar_usr.php" method="post"><br />
-                            <div class="position-relative form-group"><label class="">Usuario</label><input name="usuario" id="idUsr" placeholder="Nombre de usuario" type="text" class="form-control"></div>
-                            <div class="position-relative form-group"><label for="examplePassword" class="">Contraseña</label><input name="contraseña" id="idPass" placeholder="Contraseña" type="password" class="form-control"></div>
+                        <form class="form_usr" action="validar_usr.php" method="post"><br/>
+                            <div class="position-relative form-group"><label 
+                                    class="">Usuario</label><input name="usuario" id="idUsr"
+                                    placeholder="Nombre de usuario" type="text"
+                                    class="form-control"></div>
+                            <div class="position-relative form-group"><label for="examplePassword"
+                                    class="">Contraseña</label><input name="contraseña"
+                                    id="idPass" placeholder="Contraseña"
+                                    type="password" class="form-control"></div>
                             <button class="mt-1 btn btn-primary">Autenticar</button>
+                        </form>
+                    </div>
+                    <div class="ventana_usr header-shadow bg-night-sky header-text-light" id="UserDB">ACCESOS Y USUARIOS
+                        <form class="form_usr"><br />
+                            <div class="position-relative form-group"><label class="">Usuario</label><input name="user" id="nombreUSr" placeholder="Nombre de usuario del Sistema" type="text" class="form-control"></div>
+                            <div class="position-relative form-group"><label class="">Contraseña</label><input name="password" id="passw" placeholder="Contraseña" type="password" class="form-control"></div>
+                            <div class="position-relative form-group"><label class="">Acceso</label><select name="access" id="nivaccess"><option value="Administrador">Administrador</option><option value="Editor">Editor</option></select>
+                            <button class="mt-1 btn btn-primary">Crear</button>
                         </form>
                     </div>
                 </div>
@@ -259,17 +254,21 @@
             });
         }
 
-        function urlDB() {
-            document.getElementById("direcDB").style.display = "block";
+        function MensajeCerrarSesion() {
+            Swal.fire({
+                icon: 'action',
+                title: 'Se ha cerrado la sesión'
+            });
         }
 
-        function ElegirDB() {
-            document.getElementById("ElegirDB").style.display = "block";
-        }
-
-        function abrirUsr() {
+        function AbrirUsr() {
             document.getElementById("ventana_usuario").style.display = "block";
         }
+
+        function UserDB() {
+            document.getElementById("UserDB").style.display = "block";
+        }
+
     </script>
 </body>
 

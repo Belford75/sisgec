@@ -1,25 +1,29 @@
 <?php
-
+require 'conectar.php';
 $usuario = $_POST['usuario'];
 $contraseña = $_POST['contraseña'];
 session_start();
 
 $_SESSION['usuario'] = $usuario;
-$conexion = mysqli_connect("localhost", "root", "", "sisgec");
 
 $consulta = "SELECT * FROM usuarios WHERE usuario='$usuario' and contraseña='$contraseña'";
 $resultado = mysqli_query($conexion, $consulta);
 
-//$filas=mysqli_fetch_array($resultado);
 $filas = mysqli_fetch_row($resultado);
 
 if ($filas) {
   include("index.php");
   header("location:index.php");
+  
 } else {
 
-  $_POST['usuario'] = 'USUARIO NO LOGUEADO';
+  $usuario = NULL;
   include("index.php");
+  header("location:index.php");
+
+  session_unset();
+  session_destroy();
+  
   echo '<script language="javascript">';
   echo 'MensajeErrorInicio();';
   echo '</script>';

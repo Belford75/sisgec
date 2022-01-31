@@ -60,25 +60,20 @@
             </div>    
             <div class="app-header__content">
                 <div>
-                    <h1 class="subtitulo">REGISTRO DE DIEZMOS</h1>
+                    <h1 class="subtitulo">REGISTRO DE ASISTECIA</h1>
                 </div>
                 <div class="app-header-right">
                     <div class="header-btn-lg pr-0">
                         <div class="widget-content p-0">
                             <div class="widget-content-wrapper">
-                                <div class="widget-content-left">
-                                    <div class="btn-group">
-                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                            <img width="42" class="rounded-circle" src="assets/images/avatars/12.jpg" alt="">
-                                        </a>
-                                    </div>
-                                </div>
+                            <img width="40" class="rounded-circle" src="assets/images/avatars/login.jpg" alt="">
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
-                                        Belford Guthrié
-                                    </div>
-                                    <div class="widget-subheading">
-                                        Administrador
+                                        <?php
+                                            session_start();
+                                            $usuario=$_SESSION['usuario'];
+                                            echo $usuario;
+                                        ?>
                                     </div>
                                 </div>
                             </div>
@@ -133,13 +128,15 @@
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="form-persona.html">
+                                        <a href="form-persona.php">
+                                        <?php $_SESSION['usuario']=$usuario;?>
                                             <i class="metismenu-icon pe-7s-id"></i>
                                             Registro de Personas
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="form-asistencia.html">
+                                        <a href="form-asistencia.php">
+                                        <?php $_SESSION['usuario']=$usuario;?>
                                             <i class="metismenu-icon">
                                             </i>Registro de Asistencia
                                         </a>
@@ -154,19 +151,22 @@
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="form-diezmos.html">
+                                        <a href="form-diezmos.php">
+                                        <?php $_SESSION['usuario']=$usuario;?>
                                             <i class="metismenu-icon pe-7s-wallet">
                                             </i>Registro de Diezmos
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="form-ingresos.html">
+                                        <a href="form-ingresos.php">  
+                                        <?php $_SESSION['usuario']=$usuario;?> 
                                             <i class="metismenu-icon pe-7s-piggy">
                                             </i>Registro de Ingresos
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="form-gastos.html">
+                                        <a href="form-gastos.php">  
+                                        <?php $_SESSION['usuario']=$usuario;?>
                                             <i class="metismenu-icon pe-7s-credit">
                                             </i>Registro de Gastos
                                         </a>
@@ -174,9 +174,9 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="index.html">
-                                    <i class="metismenu-icon pe-7s-scissors"></i>
-                                    Cerrar Sesión
+                                <a href="index.php">
+                                    <i class="metismenu-icon pe-7s-home"></i>
+                                    Menú Principal
                                 </a>
                             </li>
                         </ul>
@@ -212,7 +212,7 @@
                         <li class="nav-item">
                             <div class="search-wrapper">
                                 <div class="input-holder">
-                                    <input type="text" class="search-input" placeholder="Búsqueda">
+                                    <input type="date" class="search-input" placeholder="Búsqueda por fecha">
                                     <button class="search-icon"><span></span></button>
                                 </div>
                                 <button class="close"></button>
@@ -224,45 +224,42 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="main-card mb-3 card">
-                                        <div class="card-body">
-                                            <h5 class="card-title"></h5>
+                                        <div class="card-body"><h5 class="card-title"></h5>
                                             <form class="">
-                                                <div class="position-relative form-group"><label 
-                                                    class="">Nombre(s) y Apellidos</label><input name="nombre" id="IdNombreDiezmo"
-                                                    placeholder="Se reconoce mayúsculas y minúsculas" type="text"
-                                                    class="form-control"></div>
-                                            </form>   
-                                            <form class="form-row">
-                                                <div class="position-relative form-group"><label 
-                                                    class="">Fecha de registro</label><input name="fec_reg" id="IdFechaDiezmo"
-                                                    placeholder="Elija o digite la fecha" type="date"
-                                                    class="form-control"></div>
-                                                <div class="col-md-3">
-                                                    <div class="position-relative form-group"><label
-                                                        class="">Mes corresp.</label><select type="select"
-                                                           id="IdMes" name="mes"
-                                                           class="custom-select">
-                                                           <option>Enero</option>
-                                                           <option>Febrero</option>
-                                                           <option>Marzo</option>
-                                                           <option>Abril</option>
-                                                           <option>Mayo</option>
-                                                           <option>Junio</option>
-                                                           <option>Julio</option>
-                                                           <option>Agosto</option>
-                                                           <option>Septiembre</option>
-                                                           <option>Octubre</option>
-                                                           <option>Noviembre</option>
-                                                           <option>Diciembre</option>
-                                                       </select></div>
+                                                <div class="form-row">
+                                                    <div class="col-md-4">
+                                                        <div class="position-relative form-group">
+                                                            <label class="">Fecha del Servicio</label><input name="fec_serv" id="idFecServ" type="date" class="form-control"></div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group">
+                                                            <label class="">Adultos</label><input name="adultos" id="idAdultos" placeholder="Cant." type="number" class="form-control"></div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group">
+                                                            <label class="">Visita Adultos</label><input name="adultos_vis" id="idAdultosVis" placeholder="Cant." type="number" class="form-control"></div>
+                                                    </div>
                                                 </div>
-                                                <div class="position-relative form-group"><label 
-                                                    class="">Monto Bs.</label><input name="monto_diezmo" id="IdMonto_diezmo"
-                                                    placeholder="Monto Bs." type="number"
-                                                    class="form-control"></div>
+                                                <div class="form-row">
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group">
+                                                            <label class="">Jóvenes</label><input name="jovenes" id="idJovenes" placeholder="Cant." type="number" class="form-control"></div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group">
+                                                            <label class="">Visita Jóvenes</label><input name="jovenes_vis" id="idJovenesVis" placeholder="Cant." type="number" class="form-control"></div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group">
+                                                            <label class="">Niños</label><input name="ninios" id="idNinios" placeholder="Cant." type="number" class="form-control"></div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group">
+                                                            <label class="">Visita Niños</label><input name="ninios_vis" id="idNiniosVis" placeholder="Cant." type="number" class="form-control"></div>
+                                                    </div>
+                                                </div>
+                                                <button class="mt-2 btn btn-primary">Grabar</button>
                                             </form>
-                                            <button class="mt-1 btn btn-primary">Grabar</button>
-                                            <button class="mt-1 btn btn-primary">Corregir</button>
                                         </div>
                                     </div>
                                 </div>
@@ -273,39 +270,55 @@
                                 <div class="col-lg-6">
                                     <div class="main-card mb-3 card">
                                         <div class="card-body">
-                                            <h5 class="card-title">PERSONAS REGISTRADAS EN LA DB</h5>
+                                            <h5 class="card-title">ASISTENCIA REGISTRADA EN LA DB</h5>
                                             <div class="table-responsive">
                                                 <table class="mb-0 table">
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>Nombres y apellidos</th>
-                                                            <th>Mes</th>
                                                             <th>Fecha</th>
-                                                            <th>Monto Bs.</th>
+                                                            <th>Adultos</th>
+                                                            <th>Visitas</th>
+                                                            <th>Jóvenes</th>
+                                                            <th>Visitas</th>
+                                                            <th>Niños</th>
+                                                            <th>Visitas</th>
+                                                            <th>Totales</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
                                                             <th scope="row">1</th>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
+                                                            <td>05/12/2021</td>
+                                                            <td>70</td>
+                                                            <td>5</td>
+                                                            <td>25</td>
+                                                            <td>3</td>
+                                                            <td>30</td>
+                                                            <td>0</td>
+                                                            <td>133</td>
                                                         </tr>
                                                         <tr>
                                                             <th scope="row">2</th>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
+                                                            <td>12/12/2021</td>
+                                                            <td>65</td>
+                                                            <td>10</td>
+                                                            <td>30</td>
+                                                            <td>10</td>
+                                                            <td>25</td>
+                                                            <td>8</td>
+                                                            <td>148</td>
                                                         </tr>
                                                         <tr>
                                                             <th scope="row">3</th>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
+                                                            <td>19/12/2021</td>
+                                                            <td>80</td>
+                                                            <td>15</td>
+                                                            <td>45</td>
+                                                            <td>15</td>
+                                                            <td>35</td>
+                                                            <td>18</td>
+                                                            <td>208</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
