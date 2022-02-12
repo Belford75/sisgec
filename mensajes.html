@@ -1,0 +1,69 @@
+<!doctype html>
+
+<script type="text/javascript" src="./assets/scripts/main.js"></script>
+<script>
+    function MensajeErrorInicio() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Usuario incorrecto'
+        });
+    }
+
+    function MensajeGuardado() {
+        Swal.fire({
+            icon: 'success',
+            title: 'La información se guardó exitosamente'
+        });
+    }
+
+    function ErrorGuardado() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Datos incorrectos o faltantes, no se pudo completar el guardado'
+        });
+    }
+
+    function MensajeCerrarSesion() {
+        Swal.fire({
+            icon: 'action',
+            title: 'Se ha cerrado la sesión'
+        });
+    }
+
+    function IngreseNuevamente() {
+        Swal.fire({
+            icon: 'action',
+            title: 'Debe iniciar sesión nuevamente'
+        });
+    }
+
+    function AbrirUsr() {
+        document.getElementById("ventana_usuario").style.display = "block";
+    }
+
+    function UserDB() {
+        document.getElementById("UserDB").style.display = "block";
+    }
+
+    function CerrarUsrDB() {
+        document.getElementById("UserDB").style.display = "none";
+    }
+
+    function mostrarBtn(){
+        document.getElementById('mesCumple').style.display = 'none';
+        document.getElementById('btnBuscar').style.display = 'block';
+            
+        }
+
+    function ocultarBtn(){
+        document.getElementById('btnBuscar').style.display = 'none';
+        document.getElementById('mesCumple').style.display = 'block';
+    }
+
+    function ocultarTodo(){
+        document.getElementById('btnBuscar').style.display = 'none';
+        document.getElementById('mesCumple').style.display = 'none';
+    }
+</script>
+
+</html>

@@ -23,6 +23,7 @@
     -->
     <link href="./main.css" rel="stylesheet">
     <link rel="icon" href="assets/images/logoB-Tch.ico">
+    <script src="./assets/scripts/jquery.js"></script>
 </head>
 
 <body>
@@ -70,9 +71,13 @@
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
                                         <?php
-                                            session_start();
-                                            $usuario=$_SESSION['usuario'];
-                                            echo $usuario;
+                                            if(isset($usuario)){
+                                                echo $usuario;
+                                            } else {
+                                                session_start();
+                                                $usuario=$_SESSION['usuario'];
+                                                echo $usuario;
+                                            }
                                         ?>
                                     </div>
                                 </div>
@@ -128,17 +133,17 @@
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="form-persona.php">
-                                        <?php $_SESSION['usuario']=$usuario;?>
-                                            <i class="metismenu-icon pe-7s-id"></i>
-                                            Registro de Personas
-                                        </a>
-                                    </li>
-                                    <li>
                                         <a href="form-asistencia.php">
                                         <?php $_SESSION['usuario']=$usuario;?>
                                             <i class="metismenu-icon">
                                             </i>Registro de Asistencia
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="form-persona.php">
+                                        <?php $_SESSION['usuario']=$usuario;?>
+                                            <i onclick="ocultarTodo()" class="metismenu-icon pe-7s-id"></i>
+                                            Registro de Personas
                                         </a>
                                     </li>
                                 </ul>
@@ -198,29 +203,55 @@
                             </div>
                         </div>
                     </div>
+                    <?php
+                        require 'mensajes.html';
+                        echo '<script language="javascript">';
+                        echo 'ocultarTodo();';
+                        echo '</script>';
+                    ?>
                     <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
-                        <li class="nav-item">
-                            <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
+                        <li class="nav-item" onclick="mostrarBtn">
+                            <a onclick="ocultarTodo()" role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0" >
                                 <span>Registro</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
+                        <li class="nav-item" onclick="mostrarBtn">
+                            <a onclick="mostrarBtn()" role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1" >
                                 <span>Vista por Tabla</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
+                            <a onclick="ocultarBtn()" role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
                                 <span>Cumpleañeros</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <div class="search-wrapper">
+                        <li class="nav-item" id="btnBuscar">
+                            <div class="search-wrapper" >
                                 <div class="input-holder">
                                     <input type="text" class="search-input" placeholder="Búsqueda">
                                     <button class="search-icon"><span></span></button>
                                 </div>
                                 <button class="close"></button>
+                            </div>
+                        </li>
+                        <li  class="nav-item" id="mesCumple">
+                            <div class="mb-2 mr-2 dropright btn-group show">
+                                <button class="btn-wide btn btn-primary">Elija el mes</button>
+                                <button type="button" aria-haspopup="true" aria-expanded="true" data-toggle="dropdown" class="dropdown-toggle-split dropdown-toggle btn btn-primary"><span class="sr-only"></span></button>
+                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu show" x-placement="right-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(105px, 0px, 0px);">
+                                    <button type="button" tabindex="0" class="dropdown-item">Enero</button>
+                                    <button type="button" tabindex="0" class="dropdown-item">Febrero</button>
+                                    <button type="button" tabindex="0" class="dropdown-item">Marzo</button>
+                                    <button type="button" tabindex="0" class="dropdown-item">Abril</button>
+                                    <button type="button" tabindex="0" class="dropdown-item">Mayo</button>
+                                    <button type="button" tabindex="0" class="dropdown-item">Junio</button>
+                                    <button type="button" tabindex="0" class="dropdown-item">Julio</button>
+                                    <button type="button" tabindex="0" class="dropdown-item">Agosto</button>
+                                    <button type="button" tabindex="0" class="dropdown-item">Septiembre</button>
+                                    <button type="button" tabindex="0" class="dropdown-item">Octubre</button>
+                                    <button type="button" tabindex="0" class="dropdown-item">Noviembre</button>
+                                    <button type="button" tabindex="0" class="dropdown-item">Diciembre</button>
+                                </div>
                             </div>
                         </li>
                     </ul>
@@ -229,52 +260,57 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="main-card mb-3 card">
-                                        <div class="card-body">
-                                            <h5 class="card-title"></h5>
-                                            <form class="">
+                                        <div class="card-body"><h5 class="card-title"></h5>
+                                            <form class="" action="grabar_person.php" method="POST">
                                                 <div class="position-relative form-group"><label 
-                                                    class="">Nombre(s) y Apellidos</label><input name="nombre" id="IdNombreDiezmo"
+                                                    class="">Nombre(s) y Apellidos</label><input name="nombre" id="IdNombre"
                                                     placeholder="Se reconoce mayúsculas y minúsculas" type="text"
-                                                    class="form-control"></div>
-                                            </form>   
-                                            <form class="form-row">
-                                                <div class="col-md-4">
-                                                <div class="position-relative form-group"><label 
-                                                    class="">Fecha de Nacimiento</label><input name="fec_nac" id="IdFechaNacimiento"
-                                                    placeholder="Elija o digite la fecha" type="date"
-                                                    class="form-control"></div>
+                                                    class="form-control">
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <div class="position-relative form-group"><label class="">Estado Civil</label><select type="select"
-                                                        id="IdEst_civ" name="estado_civil"
-                                                        class="custom-select">
-                                                        <option>Soltero(a)</option>
-                                                        <option>Casado(a)</option>
-                                                        <option>Viudo(a)</option>
-                                                        <option>Separado(a)</option>
-                                                        <option>Divorciado(a)</option>
-                                                        <option>Concubino(a)</option>
-                                                    </select></div>
-                                                </div>
-                                                <div class="col-md-5">
+                                                <div class="position-relative form-group">
+                                                    <div class="form-row">
+                                                        <div class="col-md-4">
+                                                            <div class="position-relative form-group"><label 
+                                                                class="">Fecha de Nacimiento</label><input name="fec_nac" id="IdFechaNacimiento"
+                                                                placeholder="Elija o digite la fecha" type="date"
+                                                                class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="position-relative form-group">
+                                                                <label class="">Estado Civil</label>
+                                                                <select name="estado" type="select"
+                                                                id="IdEst_civ" 
+                                                                class="custom-select">
+                                                                    <option value="Sol">Soltero(a)</option>
+                                                                    <option value="Cas">Casado(a)</option>
+                                                                    <option value="Viu">Viudo(a)</option>
+                                                                    <option value="Sep">Separado(a)</option>
+                                                                    <option value="Div">Divorciado(a)</option>
+                                                                    <option value="Con">Concubino(a)</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="position-relative form-group"><label 
+                                                                class="">Celular</label><input name="celular" id="IdCelular"
+                                                                placeholder="Nro. de celular" type="number"
+                                                                class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>  
                                                 <div class="position-relative form-group"><label 
-                                                    class="">Celular</label><input name="celular" id="IdCelular"
-                                                    placeholder="Nro. de celular" type="number"
-                                                    class="form-control"></div>
-                                                </div>
-                                            </form>
-                                            <form class="">
-                                                <div class="position-relative form-group"><label 
-                                                    class="">Dirección del domicilio</label><input name="direccion" id="IdDireccion"
-                                                    placeholder="Se reconoce mayúsculas y minúsculas" type="text"
-                                                    class="form-control"></div>
+                                                     class="">Dirección del domicilio</label><input name="domicilio" id="IdDomi"
+                                                     placeholder="Se reconoce mayúsculas y minúsculas" type="text"
+                                                     class="form-control">
+                                                </div> 
                                                 <div class="position-relative form-group"><label 
                                                     class="">Profesión u ocupación</label><input name="profesion" id="IdProfesion"
                                                     placeholder="Se reconoce mayúsculas y minúsculas" type="text"
-                                                    class="form-control"></div>
-                                                
-                                                <button class="mt-1 btn btn-primary">Grabar</button>
-                                                <button class="mt-1 btn btn-primary">Borrar</button>
+                                                    class="form-control">
+                                                </div>
+                                                <button type="submit" class="mt-1 btn btn-primary">Grabar</button>
                                             </form>
                                         </div>
                                     </div>
@@ -292,42 +328,30 @@
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>Nombres y apellidos</th>
-                                                            <th>Fecha de nacimiento</th>
-                                                            <th>Estado Civil</th>
-                                                            <th>Dirección</th>
-                                                            <th>Profesión u Ocupación</th>
-                                                            <th>Celular</th>
+                                                            <th>Nombre</th>
+                                                            <th>Fec. Nac.</th>
+                                                            <th>Teléfono</th>
+                                                            <th>Ocupación</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">2</th>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">3</th>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                        </tr>
+                                                        <?php
+                                                            require "conectar.php";
+                                                            $sql="SELECT * FROM personas";
+                                                            $resul=mysqli_query($conexion,$sql);
+                                                            
+                                                            while($mostrar=mysqli_fetch_array($resul)){
+                                                            ?>
+                                                             <tr>
+                                                                <th><?php echo $mostrar['id_persona'] ?></th>
+                                                                <td><?php echo $mostrar['nombre'] ?></td>
+                                                                <td><?php echo $mostrar['fec_nac'] ?></td>
+                                                                <td><?php echo $mostrar['telefono'] ?></td>
+                                                                <td><?php echo $mostrar['ocupacion'] ?></td>
+                                                            </tr>
+                                                            <?php
+                                                            }
+                                                        ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -337,56 +361,55 @@
                             </div>
                         </div>
                         <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel">
-                            <form class="">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="main-card mb-3 card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">CUMPLEAÑEROS POR MES</h5>
-                                                <div class="table-responsive">
-                                                    <table class="mb-0 table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>#</th>
-                                                                <th>Nombres y apellidos</th>
-                                                                <th>Fecha de nacimiento</th>
-                                                                <th>Celular</th>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="main-card mb-3 card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">LISTA DE CUMPLEAÑEROS</h5>
+                                            <div class="table-responsive">
+                                                <table class="mb-0 table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Nombre</th>
+                                                            <th>Fec. Nac.</th>
+                                                            <th>Teléfono</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                            require "conectar.php";
+                                                            $sql="SELECT * FROM personas";
+                                                            $resul=mysqli_query($conexion,$sql);
+                                                            
+                                                            while($mostrar=mysqli_fetch_array($resul)){
+                                                            ?>
+                                                             <tr>
+                                                                <th><?php echo $mostrar['id_persona'] ?></th>
+                                                                <td><?php echo $mostrar['nombre'] ?></td>
+                                                                <td><?php echo $mostrar['fec_nac'] ?></td>
+                                                                <td><?php echo $mostrar['telefono'] ?></td>
                                                             </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <th scope="row">1</th>
-                                                                <td>Table cell</td>
-                                                                <td>Table cell</td>
-                                                                <td>Table cell</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">2</th>
-                                                                <td>Table cell</td>
-                                                                <td>Table cell</td>
-                                                                <td>Table cell</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">3</th>
-                                                                <td>Table cell</td>
-                                                                <td>Table cell</td>
-                                                                <td>Table cell</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                            <?php
+                                                            }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="./assets/scripts/main.js"></script>
+    <script type="text/javascript">
+        $('#mesCumple').hide();
+        $('#btnBuscar').hide();
+    </script>
 </body>
 
 </html>

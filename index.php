@@ -1,3 +1,7 @@
+<?php
+    require 'mensajes.html';
+?>
+
 <!doctype html>
 <html lang="es">
 
@@ -78,7 +82,6 @@
                                             } else {
                                                 echo ('USUARIO NO LOGUEADO');
                                             }
-                                           
                                         ?>
                                         </div>
                                     </div>
@@ -150,17 +153,17 @@
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="form-persona.php">
-                                            <?php $_SESSION['usuario']=$usuario;?>
-                                            <i class="metismenu-icon pe-7s-id"></i>
-                                            Registro de Personas
-                                        </a>
-                                    </li>
-                                    <li>
                                         <a href="form-asistencia.php">
                                             <?php $_SESSION['usuario']=$usuario;?>
                                             <i class="metismenu-icon">
                                             </i>Registro de Asistencia
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="form-persona.php">
+                                            <?php $_SESSION['usuario']=$usuario;?>
+                                            <i class="metismenu-icon pe-7s-id"></i>
+                                            Registro de Personas
                                         </a>
                                     </li>
                                 </ul>
@@ -234,42 +237,27 @@
                         </form>
                     </div>
                     <div class="ventana_usr header-shadow bg-night-sky header-text-light" id="UserDB">ACCESOS Y USUARIOS
-                        <form class="form_usr"><br />
-                            <div class="position-relative form-group"><label class="">Usuario</label><input name="user" id="nombreUSr" placeholder="Nombre de usuario del Sistema" type="text" class="form-control"></div>
-                            <div class="position-relative form-group"><label class="">Contraseña</label><input name="password" id="passw" placeholder="Contraseña" type="password" class="form-control"></div>
-                            <div class="position-relative form-group"><label class="">Acceso</label><select name="access" id="nivaccess"><option value="Administrador">Administrador</option><option value="Editor">Editor</option></select>
-                            <button class="mt-1 btn btn-primary">Crear</button>
+                        <form class="form_usr" action="grabar_usr.php" method="post"><br/>
+                            <div class="position-relative form-group"><label 
+                                    class="">Usuario</label><input name="usuario" id="nombreUSr" 
+                                    placeholder="Nombre de usuario del Sistema" type="text" 
+                                    class="form-control"></div>
+                            <div class="position-relative form-group"><label 
+                                    class="">Contraseña</label><input name="contraseña" id="passw" 
+                                    placeholder="Contraseña" type="password" 
+                                    class="form-control"></div>
+                            <div class="position-relative form-group"><label 
+                                    class="">Acceso </label><br/><select name="acceso" id="nivaccess">
+                                    <option value="1"> Administrador</option>
+                                    <option value="2">Editor</option></select>
+                            <br/><br/><button type="submit" class="mt-1 btn btn-primary">Grabar</button>  
+                            <a href="javascrip:CerrarUsrDB()"><button name="cerrar" class="mt-1 btn btn-primary">Cancelar</button></a>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="./assets/scripts/main.js"></script>
-    <script>
-        function MensajeErrorInicio() {
-            Swal.fire({
-                icon: 'error',
-                title: 'Usuario incorrecto'
-            });
-        }
-
-        function MensajeCerrarSesion() {
-            Swal.fire({
-                icon: 'action',
-                title: 'Se ha cerrado la sesión'
-            });
-        }
-
-        function AbrirUsr() {
-            document.getElementById("ventana_usuario").style.display = "block";
-        }
-
-        function UserDB() {
-            document.getElementById("UserDB").style.display = "block";
-        }
-
-    </script>
 </body>
 
 </html>

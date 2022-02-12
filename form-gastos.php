@@ -69,9 +69,13 @@
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
                                         <?php
-                                            session_start();
-                                            $usuario=$_SESSION['usuario'];
-                                            echo $usuario;
+                                            if(isset($usuario)){
+                                                echo $usuario;
+                                            } else {
+                                                session_start();
+                                                $usuario=$_SESSION['usuario'];
+                                                echo $usuario;
+                                            }
                                         ?>
                                     </div>
                                 </div>
@@ -127,17 +131,17 @@
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="form-persona.php">
-                                        <?php $_SESSION['usuario']=$usuario;?>
-                                            <i class="metismenu-icon pe-7s-id"></i>
-                                            Registro de Personas
-                                        </a>
-                                    </li>
-                                    <li>
                                         <a href="form-asistencia.php">
                                         <?php $_SESSION['usuario']=$usuario;?>
                                             <i class="metismenu-icon">
                                             </i>Registro de Asistencia
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="form-persona.php">
+                                        <?php $_SESSION['usuario']=$usuario;?>
+                                            <i class="metismenu-icon pe-7s-id"></i>
+                                            Registro de Personas
                                         </a>
                                     </li>
                                 </ul>

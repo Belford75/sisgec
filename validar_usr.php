@@ -15,6 +15,8 @@ if ($filas) {
   include("index.php");
   header("location:index.php");
   
+  $tipo_usr = $filas['rol_id'];
+
 } else {
 
   $usuario = NULL;

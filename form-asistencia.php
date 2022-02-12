@@ -70,9 +70,13 @@
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
                                         <?php
-                                            session_start();
-                                            $usuario=$_SESSION['usuario'];
-                                            echo $usuario;
+                                            if(isset($usuario)){
+                                                echo $usuario;
+                                            } else {
+                                                session_start();
+                                                $usuario=$_SESSION['usuario'];
+                                                echo $usuario;
+                                            }
                                         ?>
                                     </div>
                                 </div>
@@ -128,17 +132,17 @@
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="form-persona.php">
-                                        <?php $_SESSION['usuario']=$usuario;?>
-                                            <i class="metismenu-icon pe-7s-id"></i>
-                                            Registro de Personas
-                                        </a>
-                                    </li>
-                                    <li>
                                         <a href="form-asistencia.php">
                                         <?php $_SESSION['usuario']=$usuario;?>
                                             <i class="metismenu-icon">
                                             </i>Registro de Asistencia
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="form-persona.php">
+                                        <?php $_SESSION['usuario']=$usuario;?>
+                                            <i class="metismenu-icon pe-7s-id"></i>
+                                            Registro de Personas
                                         </a>
                                     </li>
                                 </ul>
@@ -209,10 +213,10 @@
                                 <span>Vista por Tabla</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="btnBuscar">
                             <div class="search-wrapper">
-                                <div class="input-holder">
-                                    <input type="date" class="search-input" placeholder="Búsqueda por fecha">
+                                <div class="input-holder" action="form-ingresos.php">
+                                    <input type="date" class="search-input">
                                     <button class="search-icon"><span></span></button>
                                 </div>
                                 <button class="close"></button>
@@ -225,40 +229,48 @@
                                 <div class="col-md-6">
                                     <div class="main-card mb-3 card">
                                         <div class="card-body"><h5 class="card-title"></h5>
-                                            <form class="">
+                                            <form class="" action="grabar_asist.php" method="POST">
                                                 <div class="form-row">
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
-                                                            <label class="">Fecha del Servicio</label><input name="fec_serv" id="idFecServ" type="date" class="form-control"></div>
+                                                            <label class="">Fecha del Servicio</label>
+                                                            <input name="fecha" id="idFecServ" type="date" class="form-control">
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="position-relative form-group">
-                                                            <label class="">Adultos</label><input name="adultos" id="idAdultos" placeholder="Cant." type="number" class="form-control"></div>
+                                                            <label class="">Adultos</label><input name="c_adultos" id="idAdultos" 
+                                                            placeholder="Cant." type="number" class="form-control"></div>
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="position-relative form-group">
-                                                            <label class="">Visita Adultos</label><input name="adultos_vis" id="idAdultosVis" placeholder="Cant." type="number" class="form-control"></div>
+                                                            <label class="">Visita Adultos</label><input name="cv_adultos" id="idAdultosVis" 
+                                                            placeholder="Cant." type="number" class="form-control"></div>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col-md-2">
                                                         <div class="position-relative form-group">
-                                                            <label class="">Jóvenes</label><input name="jovenes" id="idJovenes" placeholder="Cant." type="number" class="form-control"></div>
+                                                            <label class="">Jóvenes</label><input name="c_jovenes" id="idJovenes" 
+                                                            placeholder="Cant." type="number" class="form-control"></div>
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="position-relative form-group">
-                                                            <label class="">Visita Jóvenes</label><input name="jovenes_vis" id="idJovenesVis" placeholder="Cant." type="number" class="form-control"></div>
+                                                            <label class="">Visita Jóvenes</label><input name="cv_jovenes" id="idJovenesVis" 
+                                                            placeholder="Cant." type="number" class="form-control"></div>
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="position-relative form-group">
-                                                            <label class="">Niños</label><input name="ninios" id="idNinios" placeholder="Cant." type="number" class="form-control"></div>
+                                                            <label class="">Niños</label><input name="c_niños" id="idNiños" 
+                                                            placeholder="Cant." type="number" class="form-control"></div>
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="position-relative form-group">
-                                                            <label class="">Visita Niños</label><input name="ninios_vis" id="idNiniosVis" placeholder="Cant." type="number" class="form-control"></div>
+                                                            <label class="">Visita Niños</label><input name="cv_niños" id="idNiñosVis" 
+                                                            placeholder="Cant." type="number" class="form-control"></div>
                                                     </div>
                                                 </div>
-                                                <button class="mt-2 btn btn-primary">Grabar</button>
+                                                <button type="submit" class="mt-2 btn btn-primary">Grabar</button>
                                             </form>
                                         </div>
                                     </div>
@@ -287,39 +299,28 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>05/12/2021</td>
-                                                            <td>70</td>
-                                                            <td>5</td>
-                                                            <td>25</td>
-                                                            <td>3</td>
-                                                            <td>30</td>
-                                                            <td>0</td>
-                                                            <td>133</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">2</th>
-                                                            <td>12/12/2021</td>
-                                                            <td>65</td>
-                                                            <td>10</td>
-                                                            <td>30</td>
-                                                            <td>10</td>
-                                                            <td>25</td>
-                                                            <td>8</td>
-                                                            <td>148</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">3</th>
-                                                            <td>19/12/2021</td>
-                                                            <td>80</td>
-                                                            <td>15</td>
-                                                            <td>45</td>
-                                                            <td>15</td>
-                                                            <td>35</td>
-                                                            <td>18</td>
-                                                            <td>208</td>
-                                                        </tr>
+                                                        <?php
+                                                            require "conectar.php";
+                                                            $sql="SELECT * FROM asistencia";
+                                                            $resul=mysqli_query($conexion,$sql);
+                                                            
+                                                            while($mostrar=mysqli_fetch_array($resul)){
+                                                            $total=$mostrar['c_adultos']+$mostrar['cv_adultos']+$mostrar['c_jovenes']+$mostrar['cv_jovenes']+$mostrar['c_niños']+$mostrar['cv_niños'];
+                                                            ?>
+                                                             <tr>
+                                                                <th><?php echo $mostrar['id_asistencia'] ?></th>
+                                                                <td><?php echo $mostrar['fecha'] ?></td>
+                                                                <td style="text-align: right;"><?php echo $mostrar['c_adultos'] ?></td>
+                                                                <td style="text-align: right;"><?php echo $mostrar['cv_adultos'] ?></td>
+                                                                <td style="text-align: right;"><?php echo $mostrar['c_jovenes'] ?></td>
+                                                                <td style="text-align: right;"><?php echo $mostrar['cv_jovenes'] ?></td>
+                                                                <td style="text-align: right;"><?php echo $mostrar['c_niños'] ?></td>
+                                                                <td style="text-align: right;"><?php echo $mostrar['cv_niños'] ?></td>
+                                                                <td style="text-align: right;" ><?php echo $total ?></td>
+                                                            </tr>
+                                                            <?php
+                                                            }
+                                                        ?>
                                                     </tbody>
                                                 </table>
                                             </div>
