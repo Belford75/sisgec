@@ -235,22 +235,40 @@
                             </div>
                         </li>
                         <li  class="nav-item" id="mesCumple">
-                            <div class="mb-2 mr-2 dropright btn-group show">
-                                <button class="btn-wide btn btn-primary">Elija el mes</button>
-                                <button type="button" aria-haspopup="true" aria-expanded="true" data-toggle="dropdown" class="dropdown-toggle-split dropdown-toggle btn btn-primary"><span class="sr-only"></span></button>
-                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu show" x-placement="right-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(105px, 0px, 0px);">
-                                    <button type="button" tabindex="0" class="dropdown-item">Enero</button>
-                                    <button type="button" tabindex="0" class="dropdown-item">Febrero</button>
-                                    <button type="button" tabindex="0" class="dropdown-item">Marzo</button>
-                                    <button type="button" tabindex="0" class="dropdown-item">Abril</button>
-                                    <button type="button" tabindex="0" class="dropdown-item">Mayo</button>
-                                    <button type="button" tabindex="0" class="dropdown-item">Junio</button>
-                                    <button type="button" tabindex="0" class="dropdown-item">Julio</button>
-                                    <button type="button" tabindex="0" class="dropdown-item">Agosto</button>
-                                    <button type="button" tabindex="0" class="dropdown-item">Septiembre</button>
-                                    <button type="button" tabindex="0" class="dropdown-item">Octubre</button>
-                                    <button type="button" tabindex="0" class="dropdown-item">Noviembre</button>
-                                    <button type="button" tabindex="0" class="dropdown-item">Diciembre</button>
+
+                        <!--
+                        <form class="" action="#tab-content-2" method="POST">
+                            <div class="input-holder">
+                                <select  type="select"
+                                    id="Idmes" name="Smes"
+                                    class="custom-select">
+                                        <option value=1>ENERO</option>
+                                        <option value=2>FEBRERO</option>
+                                        <option value=3>MARZO</option>
+                                        <option value=4>ABRIL</option>
+                                        <option value=5>MAYO</option>
+                                        <option value=6>JUNIO</option>
+                                </select>
+                            </div>
+                        </form>
+                                        -->
+                               <div class="dropdown d-inline-block show">
+                                <button type="button" aria-haspopup="true" aria-expanded="true" data-toggle="dropdown" 
+                                class="mb-2 mr-2 dropdown-toggle btn btn-primary">Elija el mes</button>
+                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" x-placement="top-start" 
+                                    style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -212px, 0px);">
+                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=1 ?>>ENERO</a>
+                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=2 ?>>FEBRERO</a>
+                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=3 ?>>MARZO</a>
+                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=4 ?>>ABRIL</a>
+                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=5 ?>>MAYO</a>
+                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=6 ?>>JUNIO</a>
+                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=7 ?>>JULIO</a>
+                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=8 ?>>AGOSTO</a>
+                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=9 ?>>SEPTIEMBRE</a>
+                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=10 ?>>OCTUBRE</a>
+                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=11 ?>>NOVIEMBRE</a>
+                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=12 ?>>DICIEMBRE</a>
                                 </div>
                             </div>
                         </li>
@@ -319,7 +337,7 @@
                         </div>
                         <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-8">
                                     <div class="main-card mb-3 card">
                                         <div class="card-body">
                                             <h5 class="card-title">PERSONAS REGISTRADAS EN LA DB</h5>
@@ -379,7 +397,17 @@
                                                     <tbody>
                                                         <?php
                                                             require "conectar.php";
-                                                            $sql="SELECT * FROM personas";
+                                                            
+                                                            if(isset($_POST['Smes'])){
+                                                                $mes = $_POST['Smes'];
+                                                            } else $mes = 0;
+
+                                                            
+                                                            echo "$mes";
+                                                            
+                                                           // if($mes<=1){$mes=0;}
+
+                                                            $sql="SELECT * FROM `personas` WHERE MONTH(fec_nac) = $mes;";
                                                             $resul=mysqli_query($conexion,$sql);
                                                             
                                                             while($mostrar=mysqli_fetch_array($resul)){
