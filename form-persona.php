@@ -24,6 +24,7 @@
     <link href="./main.css" rel="stylesheet">
     <link rel="icon" href="assets/images/logoB-Tch.ico">
     <script src="./assets/scripts/jquery.js"></script>
+    <script src="./assets/scripts/jquery.dataTables.min.js"></script>
 </head>
 
 <body>
@@ -228,49 +229,35 @@
                         <li class="nav-item" id="btnBuscar">
                             <div class="search-wrapper" >
                                 <div class="input-holder">
-                                    <input type="text" class="search-input" placeholder="Búsqueda">
+                                    <input type="text" id="input-search" class="search-input" placeholder="Búsqueda">
                                     <button class="search-icon"><span></span></button>
                                 </div>
                                 <button class="close"></button>
                             </div>
                         </li>
                         <li  class="nav-item" id="mesCumple">
-
-                        <!--
-                        <form class="" action="#tab-content-2" method="POST">
-                            <div class="input-holder">
-                                <select  type="select"
-                                    id="Idmes" name="Smes"
-                                    class="custom-select">
-                                        <option value=1>ENERO</option>
-                                        <option value=2>FEBRERO</option>
-                                        <option value=3>MARZO</option>
-                                        <option value=4>ABRIL</option>
-                                        <option value=5>MAYO</option>
-                                        <option value=6>JUNIO</option>
-                                </select>
-                            </div>
-                        </form>
-                                        -->
-                               <div class="dropdown d-inline-block show">
-                                <button type="button" aria-haspopup="true" aria-expanded="true" data-toggle="dropdown" 
-                                class="mb-2 mr-2 dropdown-toggle btn btn-primary">Elija el mes</button>
-                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" x-placement="top-start" 
-                                    style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -212px, 0px);">
-                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=1 ?>>ENERO</a>
-                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=2 ?>>FEBRERO</a>
-                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=3 ?>>MARZO</a>
-                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=4 ?>>ABRIL</a>
-                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=5 ?>>MAYO</a>
-                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=6 ?>>JUNIO</a>
-                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=7 ?>>JULIO</a>
-                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=8 ?>>AGOSTO</a>
-                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=9 ?>>SEPTIEMBRE</a>
-                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=10 ?>>OCTUBRE</a>
-                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=11 ?>>NOVIEMBRE</a>
-                                    <a class="dropdown-item" data-toggle="tab" href="#tab-content-2" <?php $mes=12 ?>>DICIEMBRE</a>
+                            <form class="" action="#tab-content-2" method="POST">
+                                <div class="input-holder">
+                                    <select  type="select"
+                                        id="Idmes" name="Smes"
+                                        class="custom-select"
+                                        onchange="submit()">
+                                            <option value='' disabled selected>Elija el mes</option>
+                                            <option value=1>ENERO</option>
+                                            <option value=2>FEBRERO</option>
+                                            <option value=3>MARZO</option>
+                                            <option value=4>ABRIL</option>
+                                            <option value=5>MAYO</option>
+                                            <option value=6>JUNIO</option>
+                                            <option value=7>JULIO</option>
+                                            <option value=8>AGOSTO</option>
+                                            <option value=9>SEPTIEMBRE</option>
+                                            <option value=10>OCTUBRE</option>
+                                            <option value=11>NOVIEMBRE</option>
+                                            <option value=12>DICIEMBRE</option>
+                                    </select>
                                 </div>
-                            </div>
+                            </form>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -338,18 +325,27 @@
                         <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                             <div class="row">
                                 <div class="col-lg-8">
-                                    <div class="main-card mb-3 card">
+                                    <div class="main-card mb-8 card">
                                         <div class="card-body">
                                             <h5 class="card-title">PERSONAS REGISTRADAS EN LA DB</h5>
                                             <div class="table-responsive">
-                                                <table class="mb-0 table">
+                                                <table id="table" class="mb-0 table">
                                                     <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Nombre</th>
-                                                            <th>Fec. Nac.</th>
-                                                            <th>Teléfono</th>
-                                                            <th>Ocupación</th>
+                                                        <tr role="row">
+                                                            <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                            aria-label="#: activate to sort column ascending">#</th>
+                                                            <th class="sorting_asc" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                            aria-label="Nombre: activate to sort column descending" style="width: 0px;" 
+                                                            aria-sort="ascending">Nombre</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                            aria-label="Fec. Nac.: activate to sort column ascending" 
+                                                            style="width: 0px;">Fec. Nac.</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                            aria-label="Teléfono: activate to sort column ascending" 
+                                                            style="width: 0px;">Teléfono</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                            aria-label="Ocupación: activate to sort column ascending" 
+                                                            style="width: 0px;">Ocupación</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -361,11 +357,11 @@
                                                             while($mostrar=mysqli_fetch_array($resul)){
                                                             ?>
                                                              <tr>
-                                                                <th><?php echo $mostrar['id_persona'] ?></th>
-                                                                <td><?php echo $mostrar['nombre'] ?></td>
-                                                                <td><?php echo $mostrar['fec_nac'] ?></td>
-                                                                <td><?php echo $mostrar['telefono'] ?></td>
-                                                                <td><?php echo $mostrar['ocupacion'] ?></td>
+                                                                <th colspan="1"><?php echo $mostrar['id_persona'] ?></th>
+                                                                <td colspan="5"><?php echo $mostrar['nombre'] ?></td>
+                                                                <td colspan="1"><?php echo $mostrar['fec_nac'] ?></td>
+                                                                <td colspan="1"><?php echo $mostrar['telefono'] ?></td>
+                                                                <td colspan="1"><?php echo $mostrar['ocupacion'] ?></td>
                                                             </tr>
                                                             <?php
                                                             }
@@ -383,7 +379,7 @@
                                 <div class="col-lg-6">
                                     <div class="main-card mb-3 card">
                                         <div class="card-body">
-                                            <h5 class="card-title">LISTA DE CUMPLEAÑEROS</h5>
+                                            <!-- <h5 class="card-title">LISTA DE CUMPLEAÑEROS</h5> -->
                                             <div class="table-responsive">
                                                 <table class="mb-0 table">
                                                     <thead>
@@ -402,10 +398,47 @@
                                                                 $mes = $_POST['Smes'];
                                                             } else $mes = 0;
 
-                                                            
-                                                            echo "$mes";
-                                                            
-                                                           // if($mes<=1){$mes=0;}
+                                                            switch($mes){
+                                                                case 1:
+                                                                    echo "<html> <h5 class='card-title'>LISTA DE CUMPLEAÑEROS DE ENERO</h5> </html>";
+                                                                    break;
+                                                                case 2:
+                                                                    echo "<html> <h5 class='card-title'>LISTA DE CUMPLEAÑEROS DE FEBRERO</h5> </html>";
+                                                                    break;
+                                                                case 3:
+                                                                    echo "<html> <h5 class='card-title'>LISTA DE CUMPLEAÑEROS DE MARZO</h5> </html>";
+                                                                    break;
+                                                                case 4:
+                                                                    echo "<html> <h5 class='card-title'>LISTA DE CUMPLEAÑEROS DE ABRIL</h5> </html>";
+                                                                    break;
+                                                                case 5:
+                                                                    echo "<html> <h5 class='card-title'>LISTA DE CUMPLEAÑEROS DE MAYO</h5> </html>";
+                                                                    break;
+                                                                case 6:
+                                                                    echo "<html> <h5 class='card-title'>LISTA DE CUMPLEAÑEROS DE JUNIO</h5> </html>";
+                                                                    break;
+                                                                case 7:
+                                                                    echo "<html> <h5 class='card-title'>LISTA DE CUMPLEAÑEROS DE JULIO</h5> </html>";
+                                                                    break;
+                                                                case 8:
+                                                                    echo "<html> <h5 class='card-title'>LISTA DE CUMPLEAÑEROS DE AGOSTO</h5> </html>";
+                                                                    break;
+                                                                case 9:
+                                                                    echo "<html> <h5 class='card-title'>LISTA DE CUMPLEAÑEROS DE SEPTIEMBRE</h5> </html>";
+                                                                    break;
+                                                                case 10:
+                                                                    echo "<html> <h5 class='card-title'>LISTA DE CUMPLEAÑEROS DE OCTUBRE</h5> </html>";
+                                                                    break;
+                                                                case 11:
+                                                                    echo "<html> <h5 class='card-title'>LISTA DE CUMPLEAÑEROS DE NOVIEMBRE</h5> </html>";
+                                                                    break;
+                                                                case 12:
+                                                                    echo "<html> <h5 class='card-title'>LISTA DE CUMPLEAÑEROS DE DICIEMBRE</h5> </html>";
+                                                                    break;
+                                                                default:
+                                                                    echo "<html> <h5 class='card-title'>LISTA DE CUMPLEAÑEROS</h5> </html>";
+                                                                    break;
+                                                            }
 
                                                             $sql="SELECT * FROM `personas` WHERE MONTH(fec_nac) = $mes;";
                                                             $resul=mysqli_query($conexion,$sql);
@@ -434,6 +467,7 @@
             </div>
         </div>
     </div>
+    <script src="./assets/scripts/search.js"></script>
     <script type="text/javascript">
         $('#mesCumple').hide();
         $('#btnBuscar').hide();
