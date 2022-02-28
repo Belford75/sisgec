@@ -23,6 +23,8 @@
     -->
     <link href="./main.css" rel="stylesheet">
     <link rel="icon" href="assets/images/logoB-Tch.ico">
+    <script src="./assets/scripts/jquery.js"></script>
+    <script src="./assets/scripts/jquery.dataTables.min.js"></script>
 </head>
 
 <body>
@@ -214,9 +216,9 @@
                             </a>
                         </li>
                         <li class="nav-item" id="btnBuscar">
-                            <div class="search-wrapper">
-                                <div class="input-holder" action="form-ingresos.php">
-                                    <input type="date" class="search-input">
+                            <div class="search-wrapper" >
+                                <div class="input-holder">
+                                    <input type="date" id="input-search" class="search-input" placeholder="Búsqueda">
                                     <button class="search-icon"><span></span></button>
                                 </div>
                                 <button class="close"></button>
@@ -277,52 +279,74 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Segunda pantalla -->
                         <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="main-card mb-3 card">
+                                <div class="col-lg-8">
+                                    <div class="main-card mb-8 card">
                                         <div class="card-body">
-                                            <h5 class="card-title">ASISTENCIA REGISTRADA EN LA DB</h5>
-                                            <div class="table-responsive">
-                                                <table class="mb-0 table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Fecha</th>
-                                                            <th>Adultos</th>
-                                                            <th>Visitas</th>
-                                                            <th>Jóvenes</th>
-                                                            <th>Visitas</th>
-                                                            <th>Niños</th>
-                                                            <th>Visitas</th>
-                                                            <th>Totales</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php
-                                                            require "conectar.php";
-                                                            $sql="SELECT * FROM asistencia";
-                                                            $resul=mysqli_query($conexion,$sql);
-                                                            
-                                                            while($mostrar=mysqli_fetch_array($resul)){
-                                                            $total=$mostrar['c_adultos']+$mostrar['cv_adultos']+$mostrar['c_jovenes']+$mostrar['cv_jovenes']+$mostrar['c_niños']+$mostrar['cv_niños'];
-                                                            ?>
-                                                             <tr>
-                                                                <th><?php echo $mostrar['id_asistencia'] ?></th>
-                                                                <td><?php echo $mostrar['fecha'] ?></td>
-                                                                <td style="text-align: right;"><?php echo $mostrar['c_adultos'] ?></td>
-                                                                <td style="text-align: right;"><?php echo $mostrar['cv_adultos'] ?></td>
-                                                                <td style="text-align: right;"><?php echo $mostrar['c_jovenes'] ?></td>
-                                                                <td style="text-align: right;"><?php echo $mostrar['cv_jovenes'] ?></td>
-                                                                <td style="text-align: right;"><?php echo $mostrar['c_niños'] ?></td>
-                                                                <td style="text-align: right;"><?php echo $mostrar['cv_niños'] ?></td>
-                                                                <td style="text-align: right;" ><?php echo $total ?></td>
-                                                            </tr>
-                                                            <?php
-                                                            }
-                                                        ?>
-                                                    </tbody>
-                                                </table>
+                                            <h5 class="card-title">PERSONAS REGISTRADAS EN LA DB</h5>
+                                            <div class="scroll-area-md">
+                                                <div class="scrollbar-container ps--active-y ps">
+                                                    <div class="table-responsive">
+                                                        <table id="table" class="mb-0 table">
+                                                            <thead>
+                                                                <tr role="row">
+                                                                    <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                    aria-label="#: activate to sort column ascending">#</th>
+                                                                    <th class="sorting_asc" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                    aria-label="Fecha: activate to sort column descending" style="width: 150px;" 
+                                                                    aria-sort="ascending">Fecha</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                    aria-label="Adultos: activate to sort column ascending" 
+                                                                    style="width: 0px;">Adultos</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                    aria-label="Visitas: activate to sort column ascending" 
+                                                                    style="width: 0px;">Visitas</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                    aria-label="Jóvenes: activate to sort column ascending" 
+                                                                    style="width: 0px;">Jóvenes</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                    aria-label="Visitas: activate to sort column ascending" 
+                                                                    style="width: 0px;">Visitas</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                    aria-label="Niños: activate to sort column ascending" 
+                                                                    style="width: 0px;">Niños</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                    aria-label="Visitas: activate to sort column ascending" 
+                                                                    style="width: 0px;">Visitas</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                    aria-label="Totales: activate to sort column ascending" 
+                                                                    style="width: 0px;">Totales</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                    require "conectar.php";
+                                                                    $sql="SELECT * FROM asistencia";
+                                                                    $resul=mysqli_query($conexion,$sql);
+                                                                    
+                                                                    while($mostrar=mysqli_fetch_array($resul)){
+                                                                    $total=$mostrar['c_adultos']+$mostrar['cv_adultos']+$mostrar['c_jovenes']+$mostrar['cv_jovenes']+$mostrar['c_niños']+$mostrar['cv_niños'];
+                                                                    ?>
+                                                                    <tr>
+                                                                        <th colspan="1" style="width: 0px;"><?php echo $mostrar['id_asistencia'] ?></th>
+                                                                        <td colspan="1" style="width: 0px;"><?php echo $mostrar['fecha'] ?></td>
+                                                                        <td colspan="1" style="text-align: right;"><?php echo $mostrar['c_adultos'] ?></td>
+                                                                        <td colspan="1" style="text-align: right;"><?php echo $mostrar['cv_adultos'] ?></td>
+                                                                        <td colspan="1" style="text-align: right;"><?php echo $mostrar['c_jovenes'] ?></td>
+                                                                        <td colspan="1" style="text-align: right;"><?php echo $mostrar['cv_jovenes'] ?></td>
+                                                                        <td colspan="1" style="text-align: right;"><?php echo $mostrar['c_niños'] ?></td>
+                                                                        <td colspan="1" style="text-align: right;"><?php echo $mostrar['cv_niños'] ?></td>
+                                                                        <td colspan="1" style="text-align: right;" ><?php echo $total ?></td>
+                                                                    </tr>
+                                                                    <?php
+                                                                    }
+                                                                ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 300px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 112px;"></div></div></div>
                                             </div>
                                         </div>
                                     </div>
@@ -334,6 +358,7 @@
             </div>
         </div>
     </div>
+    <script src="./assets/scripts/search.js"></script>
     <script type="text/javascript" src="./assets/scripts/main.js"></script>
 </body>
 

@@ -23,10 +23,12 @@
     -->
     <link href="./main.css" rel="stylesheet">
     <link rel="icon" href="assets/images/logoB-Tch.ico">
+    <script src="./assets/scripts/jquery.js"></script>
+    <script src="./assets/scripts/jquery.dataTables.min.js"></script>
 </head>
 
 <body>
-    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+<div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div class="app-header header-shadow bg-night-sky header-text-light">
             <div class="app-header__logo">
                 <div class="logo-src"></div>
@@ -57,7 +59,8 @@
                         </span>
                     </button>
                 </span>
-            </div>    <div class="app-header__content">
+            </div>    
+            <div class="app-header__content">
                 <div>
                     <h1 class="subtitulo">REGISTRO DE GASTOS</h1>
                 </div>
@@ -140,7 +143,7 @@
                                     <li>
                                         <a href="form-persona.php">
                                         <?php $_SESSION['usuario']=$usuario;?>
-                                            <i class="metismenu-icon pe-7s-id"></i>
+                                            <i onclick="ocultarTodo()" class="metismenu-icon pe-7s-id"></i>
                                             Registro de Personas
                                         </a>
                                     </li>
@@ -201,21 +204,27 @@
                             </div>
                         </div>
                     </div>
+                    <?php
+                        require 'mensajes.html';
+                        echo '<script language="javascript">';
+                        echo 'ocultarBtnFind();';
+                        echo '</script>';
+                    ?>
                     <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
-                        <li class="nav-item">
-                            <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
+                        <li class="nav-item" onclick="ocultarBtnFind">
+                            <a onclick="ocultarBtnFind()" role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0" >
                                 <span>Registro</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
+                        <li class="nav-item" onclick="mostrarBtnFind">
+                            <a onclick="mostrarBtnFind()" role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1" >
                                 <span>Vista por Tabla</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <div class="search-wrapper">
+                        <li class="nav-item" id="btnBuscar">
+                            <div class="search-wrapper" >
                                 <div class="input-holder">
-                                    <input type="date" class="search-input" placeholder="Búsqueda">
+                                    <input type="date" id="input-search" class="search-input" placeholder="Búsqueda">
                                     <button class="search-icon"><span></span></button>
                                 </div>
                                 <button class="close"></button>
@@ -227,80 +236,102 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="main-card mb-3 card">
-                                        <div class="card-body">
-                                            <h5 class="card-title"></h5>
-                                            <form class="form-row">
-                                                <div class="position-relative form-group"><label 
-                                                    class="">Fecha del gasto</label><input name="fec_gas" id="IdFechaGasto"
-                                                    placeholder="Elija o digite la fecha" type="date"
-                                                    class="form-control"></div>
-                                                <div class="col-md-4">
-                                                <div class="position-relative form-group"><label 
-                                                    class="">Monto Bs.</label><input name="monto_gas" id="IdMonto_gas"
-                                                    placeholder="Monto Bs." type="number"
-                                                    class="form-control"></div>
+                                        <form class="" action="grabar_gastos.php" method="POST">
+                                            <div class="card-body">
+                                                <h5 class="card-title"></h5>
+                                                <div class="position-relative form-group">
+                                                    <div class="form-row">
+                                                        <div class="col-md-4">
+                                                            <div class="position-relative form-group"><label 
+                                                                class="">Fecha de gasto</label><input name="fec_gas" id="IdFechaGasto"
+                                                                placeholder="Elija o digite la fecha" type="date"
+                                                                class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="position-relative form-group"><label 
+                                                                class="">Monto Bs.</label><input name="monto_gas" id="IdMonto_gas"
+                                                                placeholder="Monto Bs." type="number" step="0.1"
+                                                                class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div class="form-row">
+                                                        <div class="col-md-4">
+                                                            <div class="position-relative form-group"><label 
+                                                                class=""># Rec/Fact.</label><input name="rec_gas" id="IdRec_gas"
+                                                                placeholder="Nro. Rec/Fac" type="number"
+                                                                class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="position-relative form-group"><label 
+                                                                class="">Descripción</label><input name="descrip_gas" id="IdDescripGas"
+                                                                placeholder="Descripción del gasto" type="text" 
+                                                                class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </form>
-                                            <form class="">
-                                                <div class="position-relative form-group"><label 
-                                                    class="">Recibo o Factura</label><input name="reciboGas" id="IdReciboGas"
-                                                    placeholder="Nro. de Recibo o Factura" type="text"
-                                                    class="form-control"></div>
-                                            </form> 
-                                            <form class="">
-                                                <div class="position-relative form-group"><label 
-                                                    class="">Descripción</label><input name="descripGas" id="IdDescripGas"
-                                                    placeholder="Descripción del Gasto" type="text"
-                                                    class="form-control"></div>
-                                            </form> 
-                                            <button class="mt-1 btn btn-primary">Grabar</button>
-                                            <button class="mt-1 btn btn-primary">Corregir</button>
-                                        </div>
+                                                <button class="mt-1 btn btn-primary">Grabar</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!--Segunda pantalla -->
                         <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="main-card mb-3 card">
                                         <div class="card-body">
                                             <h5 class="card-title">REGISTRO DE GASTOS EN LA DB</h5>
-                                            <div class="table-responsive">
-                                                <table class="mb-0 table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Fecha</th>
-                                                            <th>Recibo/Factura</th>
-                                                            <th>Descripción</th>
-                                                            <th>Monto Bs.</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">2</th>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">3</th>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                            <td>Table cell</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                            <div class="scroll-area-md">
+                                                <div class="scrollbar-container ps--active-y ps">
+                                                <div class="table-responsive">
+                                                    <table id="table" class="mb-0 table">
+                                                        <thead>
+                                                            <tr role="row">
+                                                                <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                aria-label="#: activate to sort column ascending">#</th>
+                                                                <th class="sorting_asc" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                aria-label="Fecha: activate to sort column descending" style="width: 200px;" 
+                                                                aria-sort="ascending">Fecha</th>
+                                                                <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                aria-label="#Rec/Fac: activate to sort column ascending" 
+                                                                style="width: 0px;">#Rec/Fac</th>
+                                                                <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                aria-label="Descripción: activate to sort column ascending" 
+                                                                style="width: 300px;">Descripción</th>
+                                                                <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                aria-label="Monto Bs.: activate to sort column ascending" 
+                                                                style="width: 300px;">Monto Bs.</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                                require "conectar.php";
+                                                                $sql="SELECT * FROM gastos";
+                                                                $resul=mysqli_query($conexion,$sql);
+                                                                
+                                                                while($mostrar=mysqli_fetch_array($resul)){
+                                                                ?>
+                                                                <tr>
+                                                                    <th colspan="1" style="width: 0px;"><?php echo $mostrar['id_gasto'] ?></th>
+                                                                    <td colspan="1" style="width: 0px;"><?php echo $mostrar['fec_gas'] ?></td>
+                                                                    <td colspan="1" style="text-align: right;"><?php echo $mostrar['rec_gas'] ?></td>
+                                                                    <td colspan="5" style="width: 0px;"><?php echo $mostrar['descrip_gas'] ?></td>
+                                                                    <td colspan="1" style="text-align: right;"><?php echo $mostrar['monto_gas'] ?></td>
+                                                                </tr>
+                                                                <?php
+                                                                }
+                                                            ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 300px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 112px;"></div></div></div>
                                             </div>
                                         </div>
                                     </div>
@@ -312,7 +343,11 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="./assets/scripts/main.js"></script>
+    <script src="./assets/scripts/search.js"></script>
+    <script src="./assets/scripts/main.js"></script>
+    <script type="text/javascript">
+        $('#btnBuscar').hide();
+    </script>
 </body>
 
 </html>

@@ -287,6 +287,7 @@
                                                                 <select name="estado" type="select"
                                                                 id="IdEst_civ" 
                                                                 class="custom-select">
+                                                                    <option value='' disabled selected>Elija el estado...</option>
                                                                     <option value="Sol">Soltero(a)</option>
                                                                     <option value="Cas">Casado(a)</option>
                                                                     <option value="Viu">Viudo(a)</option>
@@ -322,52 +323,57 @@
                                 </div>
                             </div>
                         </div>
+                        <!--Segunda pantalla -->
                         <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                             <div class="row">
                                 <div class="col-lg-8">
                                     <div class="main-card mb-8 card">
                                         <div class="card-body">
                                             <h5 class="card-title">PERSONAS REGISTRADAS EN LA DB</h5>
-                                            <div class="table-responsive">
-                                                <table id="table" class="mb-0 table">
-                                                    <thead>
-                                                        <tr role="row">
-                                                            <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
-                                                            aria-label="#: activate to sort column ascending">#</th>
-                                                            <th class="sorting_asc" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
-                                                            aria-label="Nombre: activate to sort column descending" style="width: 0px;" 
-                                                            aria-sort="ascending">Nombre</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
-                                                            aria-label="Fec. Nac.: activate to sort column ascending" 
-                                                            style="width: 0px;">Fec. Nac.</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
-                                                            aria-label="Teléfono: activate to sort column ascending" 
-                                                            style="width: 0px;">Teléfono</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
-                                                            aria-label="Ocupación: activate to sort column ascending" 
-                                                            style="width: 0px;">Ocupación</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php
-                                                            require "conectar.php";
-                                                            $sql="SELECT * FROM personas";
-                                                            $resul=mysqli_query($conexion,$sql);
-                                                            
-                                                            while($mostrar=mysqli_fetch_array($resul)){
-                                                            ?>
-                                                             <tr>
-                                                                <th colspan="1"><?php echo $mostrar['id_persona'] ?></th>
-                                                                <td colspan="5"><?php echo $mostrar['nombre'] ?></td>
-                                                                <td colspan="1"><?php echo $mostrar['fec_nac'] ?></td>
-                                                                <td colspan="1"><?php echo $mostrar['telefono'] ?></td>
-                                                                <td colspan="1"><?php echo $mostrar['ocupacion'] ?></td>
-                                                            </tr>
-                                                            <?php
-                                                            }
-                                                        ?>
-                                                    </tbody>
-                                                </table>
+                                            <div class="scroll-area-md">
+                                                <div class="scrollbar-container ps--active-y ps">
+                                                    <div class="table-responsive">
+                                                        <table id="table" class="mb-0 table">
+                                                            <thead>
+                                                                <tr role="row">
+                                                                    <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                    aria-label="#: activate to sort column ascending">#</th>
+                                                                    <th class="sorting_asc" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                    aria-label="Nombre: activate to sort column descending" style="width: 150px;" 
+                                                                    aria-sort="ascending">Nombre</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                    aria-label="Fec. Nac.: activate to sort column ascending" 
+                                                                    style="width: 0px;">Fec. Nac.</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                    aria-label="Teléfono: activate to sort column ascending" 
+                                                                    style="width: 0px;">Teléfono</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" 
+                                                                    aria-label="Ocupación: activate to sort column ascending" 
+                                                                    style="width: 0px;">Ocupación</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                    require "conectar.php";
+                                                                    $sql="SELECT * FROM personas";
+                                                                    $resul=mysqli_query($conexion,$sql);
+                                                                    
+                                                                    while($mostrar=mysqli_fetch_array($resul)){
+                                                                    ?>
+                                                                    <tr>
+                                                                        <th colspan="1" style="width: 0px;"><?php echo $mostrar['id_persona'] ?></th>
+                                                                        <td colspan="1" style="width: 0px;"><?php echo $mostrar['nombre'] ?></td>
+                                                                        <td colspan="1" style="width: 0px;"><?php echo $mostrar['fec_nac'] ?></td>
+                                                                        <td colspan="1" style="width: 0px;"><?php echo $mostrar['telefono'] ?></td>
+                                                                        <td colspan="1" style="width: 0px;"><?php echo $mostrar['ocupacion'] ?></td>
+                                                                    </tr>
+                                                                    <?php
+                                                                    }
+                                                                ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 300px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 112px;"></div></div></div>
                                             </div>
                                         </div>
                                     </div>
