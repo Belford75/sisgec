@@ -221,14 +221,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ventana_usr header-shadow bg-night-sky header-text-light" id="ventana_usuario">AUTENTIFICACION DE USUARIO
+                    <div class="ventana_usr header-shadow bg-night-sky header-text-light" id="ventana_usuario"
+                         style="position: absolute;">LOGIN
                         <form class="form_usr" action="validar_usr.php" method="post"><br/>
                             <div class="position-relative form-group"><label 
-                                    class="">Usuario</label><input name="usuario" id="idUsr"
+                                    class="" style="width: 200px;">Usuario</label><input name="usuario" id="idUsr"
                                     placeholder="Nombre de usuario" type="text"
                                     class="form-control"></div>
                             <div class="position-relative form-group"><label for="examplePassword"
-                                    class="">Contraseña</label><input name="contraseña"
+                                    class="" style="width: 200px;">Contraseña</label><input name="contraseña"
                                     id="idPass" placeholder="Contraseña"
                                     type="password" class="form-control"></div>
                             <button class="mt-1 btn btn-primary">Autenticar</button>
