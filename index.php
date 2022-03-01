@@ -56,16 +56,6 @@
                 </span>
             </div>
             <div class="app-header__content">
-                <div class="app-header-left">
-                    <ul class="header-menu nav">
-                    <li class="dropdown nav-item">
-                            <a href="javascript:AbrirUsr();" class="nav-link">
-                                <i class="nav-link-icon pe-7s-users"></i>
-                                Iniciar Sesión
-                            </a>
-                        </li>
-                    </ul>
-                </div>
                 <div class="app-header-right">
                     <div class="header-btn-lg pr-0">
                         <div class="widget-content p-0">
@@ -200,6 +190,14 @@
                             </li>
                         </ul>
                         <?php endif; ?>
+                        <div class="app-header-left">
+                            <li class="dropdown nav-item">
+                                <a href="javascript:AbrirUsr();" class="nav-link">
+                                    <i class="nav-link-icon pe-7s-users"></i>
+                                    Iniciar Sesión
+                                </a>
+                            </li>
+                        </div>
                         <li class="app-sidebar__heading">
                             <a href="cerrar_sesion.php" >
                                 CERRAR SESIÓN
