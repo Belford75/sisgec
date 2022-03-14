@@ -15,6 +15,7 @@
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="./main.css" rel="stylesheet">
     <link rel="icon" href="assets/images/logoB-Tch.ico">
 
@@ -194,7 +195,7 @@
                             <li class="dropdown nav-item">
                                 <a href="javascript:AbrirUsr();" class="nav-link">
                                     <i class="nav-link-icon pe-7s-users"></i>
-                                    Iniciar Sesión
+                                        Iniciar Sesión
                                 </a>
                             </li>
                         </div>
@@ -221,42 +222,72 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ventana_usr header-shadow bg-night-sky header-text-light" id="ventana_usuario"
-                         style="position: absolute;">LOGIN
+                    <div id="login" class="modal fade bd-example-modal-sm show" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: none;">
                         <form class="form_usr" action="validar_usr.php" method="post"><br/>
-                            <div class="position-relative form-group"><label 
-                                    class="" style="width: 200px;">Usuario</label><input name="usuario" id="idUsr"
-                                    placeholder="Nombre de usuario" type="text"
-                                    class="form-control"></div>
-                            <div class="position-relative form-group"><label for="examplePassword"
-                                    class="" style="width: 200px;">Contraseña</label><input name="contraseña"
-                                    id="idPass" placeholder="Contraseña"
-                                    type="password" class="form-control"></div>
-                            <button class="mt-1 btn btn-primary">Autenticar</button>
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content"></br>
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle" style="color: black;">LOGIN</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="position-relative form-group"><label 
+                                            class=""style="color: black;">Usuario</label>
+                                            <input name="usuario" id="idUsr" style="will-change: transform; width: 200px;"
+                                            placeholder="Nombre de usuario" type="text"
+                                            class="form-control"></div>
+                                        <div class="position-relative form-group"><label for="examplePassword"
+                                                class=""style="color: black;">Contraseña</label>
+                                                <input name="contraseña" id="idPass" placeholder="Contraseña" 
+                                                style="will-change: transform; width: 200px;"
+                                                type="password" class="form-control"></div>
+                                    </div>
+                                    <button class="mt-1 btn btn-primary">Autenticar</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
-                    <div class="ventana_usr header-shadow bg-night-sky header-text-light" id="UserDB">ACCESOS Y USUARIOS
+                    <div id="UserDB" class="modal fade bd-example-modal-sm show" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: none;">
                         <form class="form_usr" action="grabar_usr.php" method="post"><br/>
-                            <div class="position-relative form-group"><label 
-                                    class="">Usuario</label><input name="usuario" id="nombreUSr" 
-                                    placeholder="Nombre de usuario del Sistema" type="text" 
-                                    class="form-control"></div>
-                            <div class="position-relative form-group"><label 
-                                    class="">Contraseña</label><input name="contraseña" id="passw" 
-                                    placeholder="Contraseña" type="password" 
-                                    class="form-control"></div>
-                            <div class="position-relative form-group"><label 
-                                    class="">Acceso </label><br/><select name="acceso" id="nivaccess">
-                                    <option value="1"> Administrador</option>
-                                    <option value="2">Editor</option></select>
-                            <br/><br/><button type="submit" class="mt-1 btn btn-primary">Grabar</button>  
-                            <a href="javascrip:CerrarUsrDB()"><button name="cerrar" class="mt-1 btn btn-primary">Cancelar</button></a>
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content"></br>
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" style="color: black;">ACCESOS Y USUARIOS</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="position-relative form-group"><label 
+                                            class=""style="color: black;">Usuario</label>
+                                            <input name="usuario" id="nombreUSr" style="will-change: transform; width: 200px;"
+                                            placeholder="Nombre de usuario del Sistema" type="text"
+                                            class="form-control"></div>
+                                        <div class="position-relative form-group"><label for="examplePassword"
+                                                class=""style="color: black;">Contraseña</label>
+                                                <input name="contraseña" id="passw" placeholder="Contraseña" 
+                                                style="will-change: transform; width: 200px;"
+                                                type="password" class="form-control"></div>
+                                        <div class="position-relative form-group"><label 
+                                                class="">Acceso </label><br/><select name="acceso" id="nivaccess">
+                                                <option value="1"> Administrador</option>
+                                                <option value="2">Editor</option></select>
+                                    </div>
+                                    <button type="submit" class="mt-1 btn btn-primary">Grabar</button>
+                                    <a href="javascrip:CerrarUsrDB()"><button name="cerrar" class="mt-1 btn btn-primary">Cancelar</button></a>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
 </body>
 
 </html>
